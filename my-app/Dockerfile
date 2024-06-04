@@ -12,8 +12,8 @@ RUN npm install
 # アプリケーションのソースコードをコピー
 COPY . .
 
-# アプリケーションのビルド
-RUN npm run build
+# ホットリロードを有効にするための環境変数を設定
+ENV CHOKIDAR_USEPOLLING=true
 
 # サーバーを起動
 CMD ["npm", "start"]

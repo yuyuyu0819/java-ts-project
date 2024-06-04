@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.9'
 services:
   backend:
     build:
@@ -6,9 +6,17 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    volumes:
+      - ./demo:/app
+      - /app/target
   frontend:
     build:
       context: ./my-app
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    volumes:
+      - ./my-app:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true

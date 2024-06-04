@@ -14,4 +14,4 @@ COPY src src
 RUN ./mvnw install -DskipTests
 
 # アプリケーションの起動
-CMD ["java", "-jar", "target/demo-0.0.1-SNAPSHOT.jar"]
+CMD ["./mvnw", "spring-boot:run"]
