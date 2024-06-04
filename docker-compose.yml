@@ -9,6 +9,8 @@ services:
     volumes:
       - ./demo:/app
       - /app/target
+    depends_on:
+      - db
   frontend:
     build:
       context: ./my-app
@@ -20,3 +22,18 @@ services:
       - /app/node_modules
     environment:
       - CHOKIDAR_USEPOLLING=true
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: myapp
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+volumes:
+  mysql-data:
